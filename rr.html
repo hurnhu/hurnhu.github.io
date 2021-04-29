@@ -1,34 +1,95 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
+
+<head>
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Title</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="assets/style.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-  </head>
-  <body>
-    
-    <div id="test" style="display: none;">
-   <h1 style="color: red" ><a href="hurnhu.github.io">heres the real instructions :)</a></h1>
-    <iframe allow="autoplay" src="https://player.vimeo.com/video/148751763?autoplay=1" width="640" height="480" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-    </div>
-    
-    <button id="target"> CLICK ME</button>
-    <script>
-        $( "#target" ).click(function() {
-            $("#test").removeAttr("style");
-});
-   window.setTimeout(function(){
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
 
-     window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ"); 
-     window.open("https://hurnhu.github.io"); 
+<body>
+     <h1 style="color: red" ><a href="hurnhu.github.io">heres the real instructions :)</a></h1>
 
-    }, 1);
+    <video id="ocScreencapVideo" autoplay="autoplay" muted="" controls="play" loop="loop" playsinline="playsinline"
+        preload="metadata" data-aos="fade-up">
+        <source src="https://ir.stonybrook.edu/xmlui/bitstream/handle/11401/9656/rickroll.mp4?sequence=1"
+            type="video/mp4">
+        Your browser does not support MP4 Format videos or HTML5 Video.
+    </video>
+    <script type="text/javascript">
+        setTimeout(() => {
+            var autoPlayVideo = document.getElementById("ocScreencapVideo");
+            autoPlayVideo.oncanplaythrough = function () {
+
+                autoPlayVideo.play();
+                autoPlayVideo.pause();
+                autoPlayVideo.play();
+                autoPlayVideo.removeAttribute("muted");
+                setTimeout(() => { autoPlayVideo.muted = !autoPlayVideo.muted; }, 500);
+
+            }
+
+            fadeText();
+        }, 1000);
+
+        const fadeText = function () {
+            function getRandomColor() {
+                return '#' + Math.floor(Math.random() * 16777215).toString(16);
+            }
+            const words = 'Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you'.split(' ');
+            var div = document.createElement('div');
+            div.setAttribute('style', 'position: fixed; right: 10px; bottom: 10px;z-index: 100000; font-size: 100px; font-weight: bold;');
+            document.body.appendChild(div);
+            function fade(initial, step, delay, callback) {
+                div.style.display = 'block';
+                var op = initial;  // initial opacity
+                var timer = setInterval(function () {
+                    div.style.opacity = op;
+                    div.style.filter = 'alpha(opacity=' + op * 100 + ")";
+                    op += step;
+                    if (op <= 0) {
+                        clearInterval(timer);
+                        div.style.display = 'none';
+                        callback();
+                    }
+                    else if (op >= 1) {
+                        clearInterval(timer);
+                        callback();
+                    }
+                }, delay);
+            }
+            //div.style.opacity = 0;
+
+            function fadeInNextWord() {
+                if (words.length > 0) {
+                    div.style.position = 'fixed';
+                    div.style.left = (Math.random() * 50) + '%';
+                    div.style.top = (Math.random() * 50) + '%';
+                    div.innerText = words.shift();
+                    div.style.color = getRandomColor();
+                    fade(0, 0.2, 75, fadeOut);
+                }
+            }
+
+            function fadeOut() {
+                fade(1, -0.2, 75, fadeInNextWord);
+            }
+            fadeInNextWord();
+            return div;
+        }
     </script>
-  </body>
+</body>
+
 </html>
+
+
+
+
+
+
+
+
+
+
